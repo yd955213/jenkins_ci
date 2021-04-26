@@ -24,7 +24,6 @@ public class TeacherController {
 
     /**
      * 通过主键查询单条数据
-     *
      * @param id 主键
      * @return 单条数据
      */
