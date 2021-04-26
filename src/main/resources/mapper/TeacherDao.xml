@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jenkins_ci.dao.TeacherDao">
+
+    <resultMap type="com.jenkins_ci.entity.Teacher" id="TeacherMap">
+        <result property="tId" column="t_id" jdbcType="INTEGER"/>
+        <result property="tName" column="t_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TeacherMap">
+        select t_id,
+               t_name
+        from devops.teacher
+        where t_id = #{tId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TeacherMap">
+        select t_id,
+               t_name
+        from devops.teacher limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TeacherMap">
+        select
+        t_id, t_name
+        from devops.teacher
+        <where>
+            <if test="tId != null">
+                and t_id = #{tId}
+            </if>
+            <if test="tName != null and tName != ''">
+                and t_name = #{tName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="tId" useGeneratedKeys="true">
+        insert into devops.teacher(t_name)
+        values (#{tName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="tId" useGeneratedKeys="true">
+        insert into devops.teacher(t_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.tName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="tId" useGeneratedKeys="true">
+        insert into devops.teacher(t_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.tName})
+        </foreach>
+        on duplicate key update
+        t_name = values(t_name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update devops.teacher
+        <set>
+            <if test="tName != null and tName != ''">
+                t_name = #{tName},
+            </if>
+        </set>
+        where t_id = #{tId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from devops.teacher
+        where t_id = #{tId}
+    </delete>
+
+</mapper>
+

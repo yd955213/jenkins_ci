@@ -1,0 +1,12 @@
+server:
+  port: 8888
+spring:
+  datasource:
+    username: root
+    password: 123
+    url: jdbc:mysql://134.175.149.69:3306/devops?serverTimezone=UTC&useUnicode=true@characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:/mapper/*Dao.xml
+  type-aliases-package: com.jenkins_ci.entity
