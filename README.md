@@ -1,3 +1,3 @@
 # jenkins_ci
 持续构建、持续集成测试
-test1test1test11123
+添加sonarscanner
