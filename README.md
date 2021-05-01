@@ -1,3 +1,3 @@
 # jenkins_ci
 持续构建、持续集成测试
-添加sonarscanner112345
+添加sonarscanner1123456
